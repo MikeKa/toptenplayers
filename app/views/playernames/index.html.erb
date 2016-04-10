@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Playernames database</h1>
+
+<table class="table table-striped sortable">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Team</th>
+      <th>Amplua</th>
+      <th>Photolink</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @playernames.each do |playername| %>
+      <tr>
+        <td><%= playername.id %></td>
+        <td><%= playername.name %></td>
+        <td><%= playername.team %></td>
+        <td><%= playername.amplua %></td>
+        <td><%= playername.photolink %></td>
+        <td><%= link_to 'Use', new_player_path(:playername_id => playername.id, :season_id => session[:seasonid_callback], :league_id => session[:leagueid_callback]) %></td>
+        <td><%= link_to 'Show', playername %></td>
+        <td><%= link_to 'Edit', edit_playername_path(playername) %></td>
+        <td><%= link_to 'Destroy', playername, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<h3><%= link_to 'New Playername', new_playername_path %></h3>

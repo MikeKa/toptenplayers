@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<h3><%= link_to '< Back to Seasons', seasons_path(:league_id => params[:league_id])%></h3>
+
+<h1><%= @currentleague.name %>    <%= @currentseason.name %> <br>
+Players</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Player Name</th>
+      <th>Golas</th>
+      <th>Assists</th>
+      <th>Points</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @players.each do |player| %>
+      <tr>
+        <td><%= player.playername.name %></td>
+        <td><%= player.golas %></td>
+        <td><%= player.assists %></td>
+        <td><%= player.assists+player.golas*2 %></td>
+        <td><%= link_to 'Show', player %></td>
+        <td><%= link_to 'Edit', edit_player_path(player) %></td>
+        <td><%= link_to 'Destroy', player, :method => :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<h3><%= link_to 'Add New Player', playernames_path(:season_id => params[:season_id], :league_id => params[:league_id]) %></h3>

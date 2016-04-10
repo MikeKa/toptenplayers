@@ -1,0 +1,20 @@
+This is an educational project of basic level RoR programming.
+It shows stats of football players by leagues and seasons along with some descriptive info.
+
+
+The project uses:
+Ruby 2.2.1p85 (2015-02-26 revision 49769) [x86_64-darwin14]
+Rails 4.2
+Bootstrap v3.1.1
+Bootply.com template (MIT)
+
+
+To create database jus run:
+rake db: migrate
+
+To add info to database go:
+/leagues
+
+This app is ready to deploy on Heroku.com
+
+<strong> Please feel free to contibute to this project </strong>

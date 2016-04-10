@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+	</head>
+	<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">#TopTenPlayers</a>
+    </div>
+    <nav class="collapse navbar-collapse" role="navigation">
+      <ul class="nav navbar-nav">
+        <% @leagues.each do |league| %>
+          <% if @playersall.where(:league_id => league.id).first %>
+              <li>
+                <a href="index?league_id=<%= league.id %>"><%= league.country %></a>
+              </li>
+         <% end %>
+        <% end %>
+      </ul>
+    </nav>
+  </div>
+</nav>
+
+<div id="masthead">
+  <div class="container">
+      <div class="row">
+        <div class="col-md-7">  
+          <h1>Top 10 players
+            <p class="lead" >( goal = 2 points, assist = 1 point )</p>
+          </h1>
+        </div>
+        <div class="col-md-5">
+            <div class="well well-lg"> 
+              <div class="row">
+                <% if params[:league_id] %>
+                <%= @leagues.where(:id => params[:league_id]).each do |currentleague| %>
+                  <div class="col-sm-6" style="text-align: center;">
+                    <a href="http://<%= currentleague.websitelink%>" ><img src="<%= currentleague.imagelink %>" class="img-responsive centerImage" alt="logo" align="center"/>
+                    <%= currentleague.websitelink%></a>                    
+                  </div>
+                  <div class="col-sm-6">
+	              	  <small><%= currentleague.description %></small>
+                  </div>                  
+                <% break %>
+               <% end %>
+               <% else %>              
+                 <p> GLOBAL NEWS</p>
+               <% end %>
+              </div>
+            </div>
+        </div>
+      </div> 
+  </div><!--/container-->
+</div><!--/masthead-->
+
+<!--main-->
+<div class="container">
+	<div class="row">
+      <!--left-->
+      <div class="col-md-3" id="leftCol">
+        <ul class="nav nav-stacked" id="sidebar">
+          
+        <% @seasons.each do |season| %>
+          <% if @players.where(:season_id => season.id).first %>
+            <li><a href="#sec<%=season.id%>">Season <%= season.name %></a></li>
+          <% end %>
+        <%end %>
+        </ul>
+
+      </div><!--/left-->
+      
+      <!--right-->
+      <div class="col-md-9">
+        <% @seasons.each do |season| %>
+          <% if @players.where(:season_id => season.id).first %>
+            <h2 id="sec<%=season.id%>">Season <%= season.name %></h2>
+            <p>
+              <%= season.description %>
+            </p>
+
+                <div class="panel panel-default">
+<!--
+                    <div class="panel-heading">
+
+                    </div>
+-->
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped sortable">
+                              <thead>
+                                <tr>
+                                  <th>Player Name</th>
+                                  <% if not params[:league_id] %>
+                                  <th>League</th>
+                                  <% end %>
+                                  <th>Goals</th>
+                                  <th>Assists</th>
+                                  <th>Points</th>
+                                </tr>
+                              </thead>
+
+                              <tbody>
+                                <% @players.where(:season_id => season.id).each do |player| %>
+                                  <tr>
+                                    <td><%= player.playername.name %></td>
+                                    <% if not params[:league_id] %>
+                                    <td><%= player.league.name %></td>
+                                    <% end %>
+                                    <td><%= player.golas %></td>
+                                    <td><%= player.assists %></td>
+                                    <td><%= player.points %></td>
+                                  </tr>
+                                <% end %>
+                              </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+          <% end %>
+        <% end %>
+
+
+<!--
+        <h2 id="sec1">Season 2014-2015</h2>
+        <p>
+          Rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae 
+          dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut.
+        </p>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading"><h3>Hello.</h3></div>
+              <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
+                Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
+                dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
+                Aliquam in felis sit amet augue.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading"><h3>Hello.</h3></div>
+              <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
+                Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
+                dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
+                Aliquam in felis sit amet augue.
+              </div>
+            </div>
+          </div>  
+        </div>
+        
+        <hr>
+        
+        <h2 id="sec2">Season 2013-2014</h2>
+        <p>
+          Rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae 
+          dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia cor magni dolores 
+          eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, 
+          sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. 
+          Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut!
+        </p>
+        <div class="row">
+          <div class="col-md-4"><img src="//placehold.it/300x300" class="img-responsive"></div>
+          <div class="col-md-4"><img src="//placehold.it/300x300" class="img-responsive"></div>
+          <div class="col-md-4"><img src="//placehold.it/300x300" class="img-responsive"></div>
+        </div>
+        
+        <hr>
+        
+        <h2 id="sec3">Season 2012-2013</h2>
+        <p>
+          Images are responsive sed @mdo but sum are more fun peratis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
+          totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae 
+          dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia cor magni dolores 
+          eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, 
+          sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. 
+          Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut..</p>
+        <p>
+          Fos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, 
+          sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. 
+          Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut..</p>
+        
+        
+        <h2 id="sec4">Season 2011-2012</h2>
+        <p>
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
+          totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae 
+          dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia cor magni dolores 
+          eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, 
+          sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. 
+          Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut.</p>
+        
+        <hr>
+        <h4><a href="http://www.bootply.com/Gygh9swISB">Edit on Bootply</a></h4>
+        <hr>
+-->
+        </div><!--/right-->
+  	</div><!--/row-->
+</div><!--/container-->
+
+
+
+	<!-- script references -->
+
+	</body>
+</html>

@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Leagues</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Country</th>
+      <th>Website</th>
+      <th>Description</th>
+      <th>Image Link</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @leagues.each do |league| %>
+      <tr>
+        <td><%= league.id %></td>
+        <td><%= league.name %></td>
+        <td><%= league.country %></td>
+        <td><%= league.websitelink %></td>
+        <td><%= league.description %></td>
+        <td><%= league.imagelink %></td>
+        <td><%= link_to 'Seasons', seasons_path(:league_id => league.id) %></td>
+        <td><%= link_to 'Show', league %></td>
+        <td><%= link_to 'Edit', edit_league_path(league) %></td>
+        <td><%= link_to 'Destroy', league, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<h3><%= link_to 'New League', new_league_path %></h3>

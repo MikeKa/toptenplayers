@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @playername.name %>
+</p>
+
+<p>
+  <strong>Team:</strong>
+  <%= @playername.team %>
+</p>
+
+<p>
+  <strong>Amplua:</strong>
+  <%= @playername.amplua %>
+</p>
+
+<p>
+  <strong>Photolink:</strong>
+  <%= @playername.photolink %>
+</p>
+
+<%= link_to 'Edit', edit_playername_path(@playername) %> |
+<%= link_to 'Back', playernames_path(:season_id => session[:seasonid_callback], :league_id => session[:leagueid_callback]) %>
