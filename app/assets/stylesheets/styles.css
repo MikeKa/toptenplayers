@@ -27,6 +27,12 @@ body {
  margin-top:8%;
 }
 
+@media only screen and (max-width: 767px), (min-device-width: 768px) and (max-device-width: 1024px)  {
+    .table-responsive > .table > tbody > tr > td {
+        white-space: inherit;
+    }
+ }
+
 @media screen and (min-width: 768px) {
   #masthead h1 {
     font-size: 50px;
